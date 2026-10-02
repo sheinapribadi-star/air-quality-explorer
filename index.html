@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Air Quality Explorer · Sheina Pribadi</title>
+    <meta name="description" content="Hourly PM2.5 and US AQI for the Bay Area, major U.S. cities, and Jakarta: the past week, the next five days, and the best hour to get outside." />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23c8643b'/><circle cx='50' cy='50' r='22' fill='%23f6f1e8'/></svg>" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="masthead">
+        <div class="kicker"><span class="dot"></span> a data project by <a href="#about">Sheina Pribadi</a></div>
+        <h1>Air Quality <em>Explorer</em></h1>
+        <p class="lede">What&rsquo;s in the air in Berkeley, around the Bay, and in a few places I care about. Hourly PM2.5 for the past week and the next five days, plus a simple model that picks the cleanest hour to head outside.</p>
+        <div class="meta">
+          <span id="updated" class="pill muted">Loading live data&hellip;</span>
+          <button id="refresh" class="pill btn" type="button" title="Fetch fresh data">&#8635; Refresh</button>
+          <a class="pill link" href="#compare">Compare cities &rarr;</a>
+        </div>
+      </header>
+
+      <section class="explorer" aria-label="Map and city details">
+        <div class="card map-card">
+          <div class="chips" id="regions" role="tablist" aria-label="Map region"></div>
+          <div id="map" aria-label="Map of cities colored by US AQI"></div>
+        </div>
+        <aside class="card panel" id="panel" aria-live="polite">
+          <div class="skeleton"><div></div><div></div><div></div><div></div></div>
+        </aside>
+      </section>
+
+      <section class="card compare" id="compare" aria-label="Compare two cities">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Side by side</div>
+            <h2>Compare two cities</h2>
+          </div>
+          <div class="compare-controls">
+            <label class="select"><span class="swatch a"></span><select id="cmpA" aria-label="First city"></select></label>
+            <span class="vs">vs</span>
+            <label class="select"><span class="swatch b"></span><select id="cmpB" aria-label="Second city"></select></label>
+            <div class="seg" id="cmpMetric" role="group" aria-label="Metric">
+              <button data-m="pm25" class="on" type="button">PM2.5</button>
+              <button data-m="aqi" type="button">US AQI</button>
+              <button data-m="pm10" type="button">PM10</button>
+            </div>
+            <label class="toggle"><input type="checkbox" id="cmpLog" /> <span>Log scale</span></label>
+          </div>
+        </div>
+        <p class="compare-summary" id="cmpSummary"></p>
+        <div class="chart-wrap tall"><canvas id="cmpChart"></canvas></div>
+        <div class="cmp-stats" id="cmpStats"></div>
+        <p class="fine">Times shown in your local time zone. Solid = past 7 days (CAMS model history), dashed = 5-day CAMS forecast.</p>
+      </section>
+
+      <section class="about" id="about">
+        <div class="card about-card">
+          <div class="eyebrow">Why I built this</div>
+          <h2>From a research desk to a map anyone can read</h2>
+          <p>As a research associate at the <a href="https://haas.berkeley.edu/energy-institute/" target="_blank" rel="noopener">Energy Institute at Haas</a>, I modeled PM2.5 pollution sources and exposure patterns in R and Python for a faculty air-quality policy study. Most of that work lived in notebooks and policy briefs. I wanted a version that answers the everyday question I kept getting from friends: <em>is the air okay right now, and when should I go outside?</em></p>
+          <p>Fine particulate matter (PM2.5) is small enough to reach deep into the lungs and bloodstream, and it&rsquo;s one of the largest environmental health risks worldwide. Wildfire smoke has made it a Bay Area concern too. Jakarta is on the map because it&rsquo;s home, and its air is a reminder of how unevenly clean air is distributed.</p>
+          <p class="sig">&mdash; Sheina, UC Berkeley Data Science + Haas</p>
+        </div>
+        <div class="card about-card method">
+          <div class="eyebrow">Data &amp; method</div>
+          <h2>Where the numbers come from</h2>
+          <ul>
+            <li><strong>Source:</strong> <a href="https://open-meteo.com/en/docs/air-quality-api" target="_blank" rel="noopener">Open-Meteo Air Quality API</a>, built on the <a href="https://atmosphere.copernicus.eu/" target="_blank" rel="noopener">Copernicus Atmosphere Monitoring Service (CAMS)</a> models. Free, no API key, fetched live in your browser.</li>
+            <li><strong>Modeled, not measured:</strong> values are gridded model estimates (CAMS global, roughly a 40&nbsp;km grid outside Europe), not readings from a sensor on your street. For official alerts, use <a href="https://www.airnow.gov/" target="_blank" rel="noopener">AirNow</a>.</li>
+            <li><strong>AQI:</strong> the US AQI reported by Open-Meteo is the maximum across pollutants, using EPA rolling averages. Colors and health messages follow EPA categories.</li>
+            <li><strong>Model insight:</strong> an ordinary least-squares regression of hourly PM2.5 on hour-of-day harmonics plus a linear trend, fit in your browser on one city&rsquo;s past week. It describes a pattern; it doesn&rsquo;t forecast.</li>
+          </ul>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <span>Built by Sheina Pribadi with Vite, Leaflet &amp; Chart.js</span>
+        <span>Data &copy; Open-Meteo (CC BY 4.0) &middot; CAMS / Copernicus &middot; Map &copy; OpenStreetMap contributors</span>
+      </footer>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
