@@ -17,7 +17,7 @@ I spent a year as a research associate at the [Energy Institute at Haas](https:/
   - *Usually cleanest hour*: an OLS regression fit in the browser on the city's past week, `PM2.5 ~ b0 + b1·day + sin/cos(2πh/24) + sin/cos(4πh/24)`. It reports the fitted daily cycle, the week trend (µg/m³ per day), and R². Observed hourly means are plotted against the fitted curve. When R² is low, the UI says so.
 - **Compare two cities**: overlays both series on one chart (in your local time zone), with an optional log scale, stat cards (now, past-week average and peak, forecast average), and a one-line summary like *"Jakarta averaged 10× the PM2.5 of Berkeley"*.
 - **About + methods**, with data credits.
-- **Related research context** on mapping *dust* PM2.5 (brief by Evan Lingo on Mustafa Zahid's work; Energy Institute-adjacent interest). See `research/dust-pm25-brief-evan-lingo.txt`.
+- **Related research context** on mapping *dust* PM2.5 (Energy Institute-adjacent interest; background associated with Mustafa Zahid / notes by Evan Lingo). Final presentation: [`public/research/sheina-pribadi-dust-pm25-final-presentation.pdf`](public/research/sheina-pribadi-dust-pm25-final-presentation.pdf).
 - Responsive and mobile friendly. Shareable deep links: `?city=jakarta`, `?region=us`, `?a=oakland&b=fresno`.
 
 | Overview | Compare | Mobile |
