@@ -1,0 +1,131 @@
+Developing a Global Map of Dust PM 2.5
+A research brief on the work of Mustafa Zahid, written by Evan Lingo
+
+
+
+   Introduction
+
+       In 2024, UNICEF reported that air pollution accounted for 8.1 million
+   deaths globally, surpassing tobacco and poor diets to become the world’s
+   second leading risk factor for death (“Air Pollution”). PM 2.5, a broad category
+   of air pollution encompassing all particles less than 2.5 micrometers across,
+   represents the most dangerous culprit (“State of Global Air”). Because of their
+   small size, these fine airborne particles can make it past more of the body’s
+   natural defenses. Prolonged exposure can disrupt the healthy functioning of
+   the lungs and the connected blood vessels, increasing the risk of life-
+   threatening complications (Henning).
+
+        The types of pollutants that contribute to PM 2.5 vary by region. In arid
+   parts of the world, such as the Middle East, North Africa, and multiple regions
+   of Asia, one of the major contributors to air pollution is desert dust (Li et al.).
+   However, most devices used to measure PM 2.5 can’t determine much about
+   its composition without additional specialized sensors (Pan et al.). In other
+   words, most monitors can’t tell the difference between smokestack soot and
+   desert dust. To better understand how much dust is contributing to fine-
+   particle air pollution across different parts of the world, this research aims to
+   develop a global map of PM 2.5 pollution coming from dust.
+
+
+
+
+   Methodology
+
+      This study aims to estimate the amount of dust PM 2.5 in the air without
+   measuring it directly. This will be done in two steps. First, training a model to
+   learn what PM 2.5 levels typically look like on days without much dust.
+   Second, using that model to guess what the PM 2.5 levels would have looked
+   like on dusty days if they hadn’t been so dusty. The difference between the
+   predicted non-dusty PM 2.5 and the actual PM 2.5 observed on those dusty
+   days should be the amount of extra PM 2.5 contributed by the dust. The rest
+   of this section will explain this methodology in more detail.
+Stage One Model
+
+    Before the stage one model can be trained, dust days must be separated
+from non-dust days. This is done primarily using satellite imagery, which can
+be analyzed to produce quantitative measurements of how much dust is in
+the air over a given region at a given time. Days with low observed dust are set
+aside to be used for training the stage one model.
+
+     From here, the stage one model is trained to predict the PM 2.5 levels that
+a given monitor would read at a given time. It does this using the location of
+the monitor and information about the environmental conditions at that
+location and point in time, such as local wind speed, temperature, and rainfall.
+Importantly, the stage one model does not receive any information about dust
+levels and is only trained on data from non-dusty days. The model is trained
+to factor all relevant information into its PM 2.5 predictions except for dust.
+
+    The model is then used to predict PM 2.5 readings on dusty days. Because
+the model does not know anything about how dust contributes to PM 2.5, it
+should predict what the PM 2.5 would have looked like in that exact same time
+and place if it were not dusty. Taking the difference between this prediction
+and the actual PM 2.5 on that dusty day will give us an estimate of the extra
+PM 2.5 that was present because the day was indeed dusty. This will serve as
+the estimate of dust’s contribution to total PM 2.5 in that time and place.
+
+Stage Two Model
+
+    These dust contribution estimates can then be fed alongside
+environmental and geographic data into a second model of the same general
+design. This stage two model will be refined to predict the extra PM 2.5 coming
+from dust for any place in the world (given its location and environmental
+data). This model is indeed trained with knowledge of atmospheric dust levels
+(based on satellite data), and the result is a global map estimating the PM 2.5
+contributed by dust at any time and place contained in the input data.
+Applications
+
+    A map of global PM 2.5 from dust could offer important insights into
+various questions. For example, this study intends to use the resulting data to
+investigate the relationship between dust PM 2.5 exposure and mortality. If a
+strong correlation is uncovered, it would offer a compelling argument for
+policymakers to invest in more aggressive means of protecting their citizens
+from fine-particulate dust exposure, especially in areas prone to dust storms.
+
+    These data could also be used to evaluate the effectiveness of various
+dust protection measures. One such measure is afforestation, which aims to
+reduce dust pollution by planting vegetation around large sources of airborne
+dust, ideally containing the particulate matter. Given time, this study also
+intends to use these data to estimate the effectiveness of China’s Great Green
+Wall program on containing the spread of dust PM 2.5. If the analysis supports
+the efficacy of the program, it could become a model for other regions
+attempting to reduce the dust exposure facing their population. However, if
+the data show that fine-particulate dust isn’t effectively contained by
+vegetation, it could warrant additional protective actions, such as air-filter
+subsidies, in order to address these fine particles through other means.
+Works Cited
+
+“Air Pollution Accounted for 8.1 Million Deaths Globally in 2021, Becoming the
+
+Second Leading Risk Factor for Death, Including for Children under Five
+
+Years.” UNICEF, 18 June 2024, https://www.unicef.org/press-releases/air-
+
+pollution-accounted-81-million-deaths-globally-2021-becoming-second-
+
+leading-risk.
+
+
+Henning, Robert J. “Particulate Matter Air Pollution Is a Significant Risk Factor
+
+for Cardiovascular Disease.” Current Problems in Cardiology, vol. 49, nos. 1,
+
+Part B, Jan. 2024, p. 102094. ScienceDirect,
+
+https://doi.org/10.1016/j.cpcardiol.2023.102094.
+
+
+Li, Tiantian, et al. “Sand and Dust Storms: A Growing Global Health Threat
+Calls for International Health Studies to Support Policy Action.” The Lancet.
+Planetary Health, vol. 9, no. 1, Jan. 2025, pp. e34–40. PubMed Central,
+https://doi.org/10.1016/S2542-5196(24)00308-5.
+
+
+Pan, Susu, et al. “Recent Developments in the Determination of PM2.5
+Chemical Composition.” Bulletin of Environmental Contamination and
+Toxicology, vol. 108, no. 5, 2022, pp. 819–23. PubMed Central,
+https://doi.org/10.1007/s00128-022-03510-w.
+
+
+“State of Global Air.” Stateofglobalair.org, www.stateofglobalair.org/pollution-
+
+sources/pm25. Accessed 9 Apr. 2026.
+
